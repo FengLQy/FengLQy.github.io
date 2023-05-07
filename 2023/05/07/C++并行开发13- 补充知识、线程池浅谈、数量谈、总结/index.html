@@ -6,15 +6,13 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="The Redefine Team">
-    <link rel="canonical" href="http://example.com/archives/2023/01" />
+    <link rel="canonical" href="http://example.com/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9113-%20%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E8%B0%88%E3%80%81%E6%95%B0%E9%87%8F%E8%B0%88%E3%80%81%E6%80%BB%E7%BB%93/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
     <link rel="shortcut icon" href="/images/redefine-logo.svg">
     
     <title>
-        
-            Archive: 2023/1 |
         
         Theme Redefine
     </title>
@@ -109,7 +107,7 @@
                         
                             <li class="menu-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives"  >
                                     
                                         
@@ -156,7 +154,7 @@
             
                 
                     <li class="drawer-menu-item flex-center">
-                        <a class="active" 
+                        <a class="" 
                         href="/archives"  >
                              
                                 
@@ -186,45 +184,143 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
-        
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[3]</span>
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;"></h1></span>
             </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/03/18/text/"
-                        >text</a>
-                        <span class="article-date">03-18</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/"
-                        >我的第一篇hexo博客</a>
-                        <span class="article-date">03-18</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/01/22/hello-world/"
-                        >Hello World</a>
-                        <span class="article-date">01-22</span>
-                    </li>
-                
-            </ul>
-        </section>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">The Redefine Team</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-05-07 19:37:38</span>
+        <span class="mobile">2023-05-07 19:37</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p><a href="./uploads/2020/10/wp_editor_md_3dbabf4edc0466912799ee579f176b6d.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_3dbabf4edc0466912799ee579f176b6d.jpg"></a></p>
+<h1 id="补充的知识点"><a href="#补充的知识点" class="headerlink" title="补充的知识点"></a>补充的知识点</h1><ol>
+<li>wait的时候要考虑虚假唤醒，在第二参数上写好lambda表达式</li>
+<li>atomic支持赋值，但是支持</li>
+</ol>
+<pre><code>atomic&lt;int&gt; a;
+atomic&lt;int&gt; a1(a.load());
+</code></pre>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><p><a href="./uploads/2020/10/wp_editor_md_0622cd3e9e0717c3cb86a06529d3a98d.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_0622cd3e9e0717c3cb86a06529d3a98d.jpg"></a></p>
+<h1 id="线程数量"><a href="#线程数量" class="headerlink" title="线程数量"></a>线程数量</h1><ul>
+<li>线程极限：2000个左右</li>
+<li>线程数量可以测试以下，找到一个线程数量最高的值 <a target="_blank" rel="noopener" href="http://zhouaq.com/wp-content/uploads/2020/10/wp_editor_md_8834e494f6b5422f9acaa3cfc26d5071.jpg"><img lazyload src="/images/loading.svg" data-src="http://zhouaq.com/wp-content/uploads/2020/10/wp_editor_md_8834e494f6b5422f9acaa3cfc26d5071.jpg"></a></li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>C++11可以跨平台使用，但是有些情况下，也需要和windows和linux结合使用</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：</li>
+        <li>Post author：The Redefine Team</li>
+        <li>Create time：2023-05-07 19:37:38</li>
+        <li>
+            Post link：https://redefine.ohevan.com/2023/05/07/C++并行开发13- 补充知识、线程池浅谈、数量谈、总结/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%911-%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-text">补充的知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F"><span class="nav-text">线程数量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+
     </div>
 </div>
+            </div>
+        
+    </div>
+</div>
+
 
                 
 
@@ -295,6 +391,23 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -391,6 +504,14 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
     
     
 </div>

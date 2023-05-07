@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="The Redefine Team">
+    <link rel="canonical" href="http://example.com/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%918-condition_variable%E3%80%81wait%E3%80%81notify_one%E3%80%81notify_all/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+        Theme Redefine
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+    
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Theme Redefine"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.0.0","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
+
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;"></h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">The Redefine Team</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-05-07 19:37:39</span>
+        <span class="mobile">2023-05-07 19:37</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p><a href="./uploads/2020/10/wp_editor_md_1595bb5abee495f272ec9f484e9d3272.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_1595bb5abee495f272ec9f484e9d3272.jpg"></a></p>
+<h1 id="std-condition-variable"><a href="#std-condition-variable" class="headerlink" title="std::condition_variable"></a>std::condition_variable</h1><p>condition_variable实际上是一个类，说白了就是等待一个条件的达成</p>
+<ul>
+<li><p>notify_one(); 尝试把wait的线程唤醒</p>
+</li>
+<li><p>wait() 用来等一个东西 如果第二个参数返回true，那么wait()直接返回,并继续执行 如果第二个参数返回false,那么wait()将解锁互斥量，并堵塞到本行一直堵塞到某一个线程调用notify_one为止； 如果wait()没有第二个参数，my_cond(sbguard1);那么就和第二个参数lambda直接返回false一样 wait()将解锁互斥量，并堵塞到本行，直到某一个线程调用notify_one成员函数为止</p>
+</li>
+<li><p>当其他线程用notify_one之后，wait就开始干活。干什么活呢？ a) wait()不断的尝试重新获取互斥量锁，如果获取不到，那么流程就卡在wait这里等着获取，如果获取到了锁，那么流程就继续 b) 上锁（实际获取到了锁就相当于上锁 ） b.1) 如果表达式为false，那wait又对互斥量解锁，然后又休眠，等待再次被notify_one()唤醒 b.2) 如果lambda表达式为true，则wait返回，流程可以继续执行（此时互斥量已被锁住）。 b.3) 如果wait没有第二个参数，则wait返回，流程走下来</p>
+<p>#include <iostream><br>#include <thread><br>#include <algorithm><br>#include <vector><br>#include <list><br>#include <mutex><br>using namespace std;</mutex></list></vector></algorithm></thread></iostream></p>
+<p>&#x2F;&#x2F;调用类对象的成员函数的方式来创建线程<br>class A {<br>public:<br>void inMsgRecvQueue()<br>{<br>    for (int i &#x3D; 0; i &lt; 10000; i++) {<br>        cout &lt;&lt; “inMsgRecvQueue执行，插入一个元素: “ &lt;&lt; i &lt;&lt; endl;<br>        std::unique_lock<a class="link" href="std::mutex">std::mutex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> sbguard1(my_mutex1);  &#x2F;&#x2F;尝试拿到锁头<br>        msgRecvQueue.push_back(i);<br>        my_cond.notify_one();  &#x2F;&#x2F;尝试把wait的线程唤醒<br>        &#x2F;&#x2F; …执行其他代码<br>    }<br>}<br><br>void outMsgRecgQueue() {<br>    int commond &#x3D; 0;<br>    while (true) {<br>        std::unique_lock<a class="link" href="std::mutex">std::mutex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> sbguard1(my_mutex1);<br>        &#x2F;&#x2F;wait() 用来等一个东西<br>        &#x2F;&#x2F; 如果第二个参数返回true，那么wait()直接返回<br>        &#x2F;&#x2F; 如果第二个参数返回false,那么wait()将解锁互斥量，并堵塞到本行<br>        &#x2F;&#x2F; 一直堵塞到某一个线程调用notify_one为止；<br>        &#x2F;&#x2F; 如果wait()没有第二个参数，my_cond(sbguard1);那么就和第二个参数lambda直接返回false一样<br>        &#x2F;&#x2F; wait()将解锁互斥量，并堵塞到本行，直到某一个线程调用notify_one成员函数为止<br>        &#x2F;&#x2F; 当其他线程用notify_one之后，wait就开始干活。干什么活呢？<br>        &#x2F;&#x2F; a) wait()不断的尝试重新获取互斥量锁，如果获取不到，那么流程就卡在wait这里等着获取，如果获取到了锁，那么流程就继续<br>        &#x2F;&#x2F; b) 上锁（实际获取到了锁就相当于上锁 ）<br>        &#x2F;&#x2F;    b.1) 如果表达式为false，那wait又对互斥量解锁，然后又休眠，等待再次被notify_one()唤醒<br>        &#x2F;&#x2F;    b.2) 如果lambda表达式为true，则wait返回，流程可以继续执行（此时互斥量已被锁住）。<br>        &#x2F;&#x2F;    b.3) 如果wait没有第二个参数，则wait返回，流程走下来<br>        my_cond.wait(sbguard1, [this] {<br>            if (!msgRecvQueue.empty())<br>                return true;<br>            return false;<br>        });<br><br>        &#x2F;&#x2F;流程走到这里，互斥锁一定是被锁着的, 同时是最少有一条数据的<br>        commond &#x3D; msgRecvQueue.front();<br>        msgRecvQueue.pop_front();<br>        sbguard1.unlock();<br>        cout &lt;&lt; “outMsgRecgQueue 执行, 取出一个元素” &lt;&lt; commond &lt;&lt; endl;<br>    }<br>}<br>private:<br>list<int> msgRecvQueue;  &#x2F;&#x2F;消息队列<br>std::mutex my_mutex1;&#x2F;&#x2F; 创建一个互斥量<br>std::condition_variable my_cond; &#x2F;&#x2F;生成一个条件对象<br>};</int></p>
+<p>int main()<br>{<br>&#x2F;&#x2F;条件变量condition_variable、wait、notify_one、notify_all<br>&#x2F;&#x2F;线程A,等待一个条件满足<br>&#x2F;&#x2F;线程B,专门向消息队列中扔数据<br>&#x2F;&#x2F;std::condition_variable实际上是一个类，说白了就是等待一个条件的达成<br>&#x2F;&#x2F;这个类需要和互斥量配合使用<br><br>A myobja;<br>std::thread myOutnMsgObj(&amp;A::outMsgRecgQueue, &amp;myobja);<br>std::thread myInnMsgObj(&amp;A::inMsgRecvQueue, &amp;myobja);<br><br>myOutnMsgObj.join();<br>myInnMsgObj.join();<br><br>return 0;<br>}</p>
+</li>
+</ul>
+<h2 id="notify-one-amp-notify-all"><a href="#notify-one-amp-notify-all" class="headerlink" title="notify_one &amp; notify_all"></a>notify_one &amp; notify_all</h2><p>notify_one只是通知某一个正在wait的线程 notify_all是通知所有正在wait的线程</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;mutex&gt;
+using namespace std;
+
+//调用类对象的成员函数的方式来创建线程
+class A &#123;
+public:
+    void inMsgRecvQueue()
+    &#123;
+        for (int i = 0; i &lt; 10000; i++) &#123;
+            cout &lt;&lt; &quot;inMsgRecvQueue执行，插入一个元素: &quot; &lt;&lt; i &lt;&lt; endl;
+            std::unique_lock&lt;std::mutex&gt; sbguard1(my_mutex1);  //尝试拿到锁头
+            msgRecvQueue.push_back(i);
+            //my_cond.notify_one();  //尝试把wait的线程唤醒
+            my_cond.notify_all();  //尝试把wait的线程唤醒
+
+            // ...执行其他代码
+        &#125;
+    &#125;
+
+    void outMsgRecgQueue() &#123;
+        int commond = 0;
+        while (true) &#123;
+            std::unique_lock&lt;std::mutex&gt; sbguard1(my_mutex1);
+            //wait() 用来等一个东西
+            // 如果第二个参数返回true，那么wait()直接返回
+            // 如果第二个参数返回false,那么wait()将解锁互斥量，并堵塞到本行
+            // 一直堵塞到某一个线程调用notify_one为止；
+            // 如果wait()没有第二个参数，my_cond(sbguard1);那么就和第二个参数lambda直接返回false一样
+            // wait()将解锁互斥量，并堵塞到本行，直到某一个线程调用notify_one成员函数为止
+            // 当其他线程用notify_one之后，wait就开始干活。干什么活呢？
+            // a) wait()不断的尝试重新获取互斥量锁，如果获取不到，那么流程就卡在wait这里等着获取，如果获取到了锁，那么流程就继续
+            // b) 上锁（实际获取到了锁就相当于上锁 ）
+            //    b.1) 如果表达式为false，那wait又对互斥量解锁，然后又休眠，等待再次被notify_one()唤醒
+            //    b.2) 如果lambda表达式为true，则wait返回，流程可以继续执行（此时互斥量已被锁住）。
+            //    b.3) 如果wait没有第二个参数，则wait返回，流程走下来
+            my_cond.wait(sbguard1, [this] &#123;
+                if (!msgRecvQueue.empty())
+                    return true;
+                return false;
+            &#125;);
+
+            //流程走到这里，互斥锁一定是被锁着的, 同时是最少有一条数据的
+            commond = msgRecvQueue.front();
+            msgRecvQueue.pop_front();
+            sbguard1.unlock();
+            cout &lt;&lt; &quot;outMsgRecgQueue 执行, 取出一个元素&quot; &lt;&lt; commond &lt;&lt; endl;
+        &#125;
+    &#125;
+
+private:
+    list&lt;int&gt; msgRecvQueue;  //消息队列
+    std::mutex my_mutex1;// 创建一个互斥量
+    std::condition_variable my_cond; //生成一个条件对象
+&#125;;
+
+
+
+int main()
+&#123;
+    //条件变量condition_variable、wait、notify_one、notify_all
+    //线程A,等待一个条件满足
+    //线程B,专门向消息队列中扔数据
+    //std::condition_variable实际上是一个类，说白了就是等待一个条件的达成
+    //这个类需要和互斥量配合使用
+
+
+    //notify_all()
+    // 
+    A myobja;
+    std::thread myOutnMsgObj1(&amp;A::outMsgRecgQueue, &amp;myobja);
+    std::thread myOutnMsgObj2(&amp;A::outMsgRecgQueue, &amp;myobja);
+
+    std::thread myInnMsgObj(&amp;A::inMsgRecvQueue, &amp;myobja);
+
+    myOutnMsgObj1.join();
+    myOutnMsgObj2.join();
+    myInnMsgObj.join();
+
+    return 0;
+&#125;
+</code></pre>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：</li>
+        <li>Post author：The Redefine Team</li>
+        <li>Create time：2023-05-07 19:37:39</li>
+        <li>
+            Post link：https://redefine.ohevan.com/2023/05/07/C++并行开发8-condition_variable、wait、notify_one、notify_all/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%919-async%E3%80%81future%E3%80%81packaged_task%E3%80%81promise/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%917-%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E3%80%81%E8%A7%A3%E5%86%B3%EF%BC%8Ccall_once/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#std-condition-variable"><span class="nav-text">std::condition_variable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#notify-one-amp-notify-all"><span class="nav-text">notify_one &amp; notify_all</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">The Redefine Team. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.0.0</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="The Redefine Team">
+    <link rel="canonical" href="http://example.com/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%913-%E7%BA%BF%E7%A8%8B%E4%BC%A0%E5%8F%82%E8%AF%A6%E8%A7%A3%EF%BC%8Cdetach()%E5%A4%A7%E5%9D%91%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%81%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+        Theme Redefine
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+    
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Theme Redefine"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.0.0","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
+
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;"></h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">The Redefine Team</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-05-07 19:37:39</span>
+        <span class="mobile">2023-05-07 19:37</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>tips: shift + F9可以查找相关地址</p>
+<h1 id="thread传入类对象"><a href="#thread传入类对象" class="headerlink" title="thread传入类对象"></a>thread传入类对象</h1><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;thread&gt;
+
+
+using namespace std;
+
+void myprint(const int i, string mybuf) &#123;
+    cout &lt;&lt; i &lt;&lt; endl;
+    cout &lt;&lt; mybuf &lt;&lt; endl;   //直接传string也是可以的，因为会拷贝构造
+&#125;
+
+
+//void myprint(const int&amp; i, //通过shift + F9 调试发现，这里传的引用但是也会拷贝一下,是值传递，这样即使main退出，也是安全的
+//  char* mybuf) &#123;    //但是堆上的数据是不安全的，是传引用，指针和引用都是由问题的
+//  cout &lt;&lt; i &lt;&lt; endl;
+//  cout &lt;&lt; mybuf &lt;&lt; endl;   //直接传string也是可以的，因为会拷贝构造
+//&#125;
+
+int main()
+&#123;
+    //传递临时对象作为线程参数
+    int mval = 1;
+    int &amp;myvaly = mval;
+
+    char mybuf[] = &quot;this is a test &quot;;
+    //thread myobj(myprint, mval, mybuf); 
+    //问题 mybuf是什么时候转化为string 的， 有可能出现mybuf都被回收了，系统才用mybuf转string的可能性
+
+    thread myobj(myprint, mval, string(mybuf)); //这里直接将mybuf 转化为 string
+    myobj.join();
+
+    cout &lt;&lt; &quot;主线程运行完毕&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p>上述代码总结，栈上的数据在创建线程的时候会拷贝，但是堆上的数据在创建线程的时候不会拷贝</p>
+<pre><code>class A &#123;
+public:
+    int m_i;
+    A(int i) : m_i(i) &#123;   //这种构造函数也可以被称为强制类型转化函数
+        cout &lt;&lt; &quot;A 的构造函数&quot; &lt;&lt; endl;
+    &#125;
+
+    A(const A&amp; other) :m_i(other.m_i) &#123;
+        cout &lt;&lt; &quot;A 的拷贝构造函数&quot; &lt;&lt; endl;
+    &#125;
+
+    ~A() &#123;
+        cout &lt;&lt; &quot;A的析构函数&quot; &lt;&lt; endl; 
+    &#125;
+&#125;;
+
+
+void myprint(const int i, const A&amp; mybuf) &#123;
+    cout &lt;&lt; i &lt;&lt; endl;
+    cout &lt;&lt; &amp;mybuf &lt;&lt; endl;
+&#125;
+
+
+int main()
+&#123;
+    //传递临时对象作为线程参数
+    int mval = 1;
+    int &amp;myvaly = mval;
+    int second = 12;
+    thread myobj(myprint, mval, mval); //这里直接将mybuf 转化为 string
+    myobj.detach();
+    cout &lt;&lt; &quot;主线程运行完毕  111&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p>这种情况下，有可能出现mval还没有强制转换，就已经线程结束的情况,从下图可以看到，A有可能没有构造完毕，主线程就推出了<br><a href="./uploads/2020/09/wp_editor_md_d5857ca4b6b2f8593fcddd67d9b4a5f7.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/09/wp_editor_md_d5857ca4b6b2f8593fcddd67d9b4a5f7.jpg"></a></p>
+<pre><code>int main()
+&#123;
+    //传递临时对象作为线程参数
+    int mval = 1;
+    int &amp;myvaly = mval;
+    int second = 12;
+    //thread myobj(myprint, mval, mval); //这里直接将mybuf 转化为 string
+    thread myobj(myprint, mval,A(mval)); //在创建线程的同时构造临时对象的方法是可行的
+    myobj.detach();
+    cout &lt;&lt; &quot;主线程运行完毕  111&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p>如果先临时构造一下，就可以正常构建 <a href="./uploads/2020/09/wp_editor_md_5ea4462c65b82be93e81c4be48eced59.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/09/wp_editor_md_5ea4462c65b82be93e81c4be48eced59.jpg"></a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><pre><code>1. 若传递的是int这种简单的类型参数，建议直接值传递，不要传引用，以免节外生枝
+</code></pre>
+</li>
+<li><pre><code>2. 如果传递类对象，避免隐式类型转换， 全部都在传递参数的时候，构建一个临时变量，用引用来接，否则系统就会构造3次
+</code></pre>
+</li>
+</ul>
+<h2 id="线程id"><a href="#线程id" class="headerlink" title="线程id"></a>线程id</h2><p>线程id 可以通过std::this_thread::get_id()</p>
+<h2 id="传递类对象，智能指针作为线程参数"><a href="#传递类对象，智能指针作为线程参数" class="headerlink" title="传递类对象，智能指针作为线程参数"></a>传递类对象，智能指针作为线程参数</h2><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;thread&gt;
+
+using namespace std;
+
+
+class A &#123;
+public:
+    mutable int m_i;
+    A(int i) : m_i(i) &#123;   //这种构造函数也可以被称为强制类型转化函数
+        cout &lt;&lt; &quot;A 的构造函数&quot; &lt;&lt; &quot;Id : &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    &#125;
+
+    A(const A&amp; other) :m_i(other.m_i) &#123;
+        cout &lt;&lt; &quot;A 的拷贝构造函数&quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    &#125;
+
+    ~A() &#123;
+        cout &lt;&lt; &quot;A的析构函数&quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    &#125;
+&#125;;
+
+
+void myprint(const int i, const A&amp; mybuf) &#123;
+    cout &lt;&lt; i &lt;&lt; endl;
+    mybuf.m_i = 199;  //已经拷贝构造了，这里修改但是没有用
+&#125;
+
+
+int main()
+&#123;
+    //传递临时对象作为线程参数
+    int mval = 1;
+    int &amp;myvaly = mval;
+    int second = 12;
+
+    A a(mval);
+
+    //thread myobj(myprint, mval, a);  //这里传入进去并不会修改A里面的值
+
+    thread myobj(myprint, mval, std::ref(a));  //这里传入进去并不会修改A里面的值
+    // 不加std::ref myprin里面就必须要加上const 并且引用，否则会报错
+
+    myobj.detach();
+    cout &lt;&lt; &quot;A  &quot; &lt;&lt; a.m_i &lt;&lt; endl;
+    cout &lt;&lt; &quot;主线程Id: &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl; 
+    cout &lt;&lt; &quot;主线程运行完毕  111&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p>可以使用std::ref()改变类中的成员数据。</p>
+<pre><code>void myprint(unique_ptr&lt;int&gt; i) &#123;
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    unique_ptr&lt;int&gt; myp(new int(100));
+    //shared_ptr&lt;int&gt; myp(new int(100));
+    thread mtobj(myprint, myp);  //报错  unique_ptr不支持拷贝构造， shared_ptr就可以
+
+    //thread mtobj(myprint, std::move(myp));
+
+    mtobj.join();
+    return 0;
+&#125;
+</code></pre>
+<p>unique_ptr不支持拷贝构造， shared_ptr就可以, 如果一定要用move也可以使用std::move</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;thread&gt;
+
+using namespace std;
+
+
+class A &#123;
+public:
+    mutable int m_i;
+    A(int i) : m_i(i) &#123;   //这种构造函数也可以被称为强制类型转化函数
+        cout &lt;&lt; &quot;A 的构造函数&quot; &lt;&lt; &quot;Id : &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    &#125;
+
+    A(const A&amp; other) :m_i(other.m_i) &#123;
+        cout &lt;&lt; &quot;A 的拷贝构造函数&quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    &#125;
+
+    void thread_word(int num) &#123;
+        cout &lt;&lt; &quot;num is &quot; &lt;&lt; num &lt;&lt; endl;
+    &#125;
+
+    void operator()(int num) &#123;
+        cout &lt;&lt; &quot;operator &quot; &lt;&lt; num &lt;&lt; endl;
+    &#125;
+
+    ~A() &#123;
+        cout &lt;&lt; &quot;A的析构函数&quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    &#125;
+&#125;;
+
+
+//void myprint(const int i, const A&amp; mybuf) &#123;
+//  cout &lt;&lt; i &lt;&lt; endl;
+//  mybuf.m_i = 199;  //已经拷贝构造了，这里修改但是没有用
+//&#125;
+
+
+void myprint(unique_ptr&lt;int&gt; i) &#123;
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    A myobj(1);
+    std::thread mytobj(&amp;A::thread_word, myobj, 500);
+    //std::thread mytobj(myobj, 500);
+
+    mytobj.join();  //这里只能用到join 因为thread中需要传入myobj
+    return 0;
+&#125;
+</code></pre>
+<p>使用类成员函数作为线程对象 总结：使用std::ref不会再使用拷贝构造函数，std::move是真的左移</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：</li>
+        <li>Post author：The Redefine Team</li>
+        <li>Create time：2023-05-07 19:37:39</li>
+        <li>
+            Post link：https://redefine.ohevan.com/2023/05/07/C++并行开发3-线程传参详解，detach()大坑，成员函数做线程函数/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%914-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#thread%E4%BC%A0%E5%85%A5%E7%B1%BB%E5%AF%B9%E8%B1%A1"><span class="nav-text">thread传入类对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8Bid"><span class="nav-text">线程id</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%BD%9C%E4%B8%BA%E7%BA%BF%E7%A8%8B%E5%8F%82%E6%95%B0"><span class="nav-text">传递类对象，智能指针作为线程参数</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">The Redefine Team. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.0.0</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

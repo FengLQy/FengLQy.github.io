@@ -6,15 +6,13 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="The Redefine Team">
-    <link rel="canonical" href="http://example.com/archives/2023" />
+    <link rel="canonical" href="http://example.com/page/2" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
     <link rel="shortcut icon" href="/images/redefine-logo.svg">
     
     <title>
-        
-            Archive: 2023 |
         
         Theme Redefine
     </title>
@@ -79,9 +77,9 @@
         <div class="left">
             
             <a class="logo-title" href="/">
-                
+                <h1>
                 Theme Redefine
-                
+                </h1>
             </a>
         </div>
 
@@ -93,7 +91,7 @@
                         
                             <li class="menu-item">
                                 <!-- Menu -->
-                                <a class="" 
+                                <a class="active" 
                                     href="/"  >
                                     
                                         
@@ -109,7 +107,7 @@
                         
                             <li class="menu-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives"  >
                                     
                                         
@@ -141,7 +139,7 @@
             
                 
                     <li class="drawer-menu-item flex-center">
-                        <a class="" 
+                        <a class="active" 
                         href="/"  >
                              
                                 
@@ -156,7 +154,7 @@
             
                 
                     <li class="drawer-menu-item flex-center">
-                        <a class="active" 
+                        <a class="" 
                         href="/archives"  >
                              
                                 
@@ -185,116 +183,153 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="archive-container ">
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
         
-<div class="archive-list-container">
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/">
+                        
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        
+创建线程的简单演示
+首先，在一个程序中一个进程结束的标志是main函数执行结束，因此在正常情况下，当主线程执行完毕后，其他子线程如果没有执行完毕，也会被操作系统强行关闭
+
+自己创建的进程也是从一个函数开始
+
+
+threadthread是一个类，只能...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 07 2023 19:37:38 GMT+0800">
+                
+                    2023/05/07
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9113-%20%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E8%B0%88%E3%80%81%E6%95%B0%E9%87%8F%E8%B0%88%E3%80%81%E6%80%BB%E7%BB%93/">
+                        
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        
+补充的知识点
+wait的时候要考虑虚假唤醒，在第二参数上写好lambda表达式
+atomic支持赋值，但是支持
+
+atomic&lt;int&gt; a;
+atomic&lt;int&gt; a1(a.load());
+
+线程池
+线程数量
+线程极限...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 07 2023 19:37:38 GMT+0800">
+                
+                    2023/05/07
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9113-%20%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E8%B0%88%E3%80%81%E6%95%B0%E9%87%8F%E8%B0%88%E3%80%81%E6%80%BB%E7%BB%93/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%911-%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+                        
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        前言C++多线程是实际工程经验中必不可少的一个技能点，因此学习C++多线程是非常有必要的。本次整理的笔记，主要参考B站视频，以及CSDN博客，对C++多线程进行整理。
+1、并发基本概念及实现，进程线程基本概念
+1.1 并发
+以往计算机，单核cpu（中...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 07 2023 19:17:42 GMT+0800">
+                
+                    2023/05/07
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%911-%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[13]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9110-future%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E3%80%81shared_future%E3%80%81atomic/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9111-%20std__atomic%E7%BB%AD%E8%B0%88%E3%80%81std__async%E6%B7%B1%E5%85%A5%E8%B0%88/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9112-windows%E4%B8%B4%E7%95%8C%E5%8C%BA%E3%80%81%E5%85%B6%E4%BB%96%E5%90%84%E7%A7%8Dmutex%E4%BA%92%E6%96%A5%E9%87%8F/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%915-%E4%BA%92%E6%96%A5%E9%87%8F%E6%A6%82%E5%BF%B5%E3%80%81%E7%94%A8%E6%B3%95%E3%80%81%E6%AD%BB%E9%94%81%E6%BC%94%E7%A4%BA%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%AF%A6%E8%A7%A3/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%914-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%913-%E7%BA%BF%E7%A8%8B%E4%BC%A0%E5%8F%82%E8%AF%A6%E8%A7%A3%EF%BC%8Cdetach()%E5%A4%A7%E5%9D%91%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%81%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%917-%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E3%80%81%E8%A7%A3%E5%86%B3%EF%BC%8Ccall_once/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%916-unique_lock%E8%AF%A6%E8%A7%A3/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%918-condition_variable%E3%80%81wait%E3%80%81notify_one%E3%80%81notify_all/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%919-async%E3%80%81future%E3%80%81packaged_task%E3%80%81promise/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9113-%20%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E8%B0%88%E3%80%81%E6%95%B0%E9%87%8F%E8%B0%88%E3%80%81%E6%80%BB%E7%BB%93/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%911-%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"
-                        ></a>
-                        <span class="article-date">05-07</span>
-                    </li>
-                
-            </ul>
-        </section>
+        <a class="prev btn"
+           href="/"
+        >Prev</a>
+    
+
     
 </div>
 
     </div>
 </div>
+
 
                 
 
@@ -419,6 +454,7 @@
 
 
 </main>
+
 
 
 

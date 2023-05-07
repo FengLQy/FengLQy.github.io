@@ -6,15 +6,13 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="The Redefine Team">
-    <link rel="canonical" href="http://example.com/2023/01/22/hello-world/" />
+    <link rel="canonical" href="http://example.com/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%914-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
     <link rel="shortcut icon" href="/images/redefine-logo.svg">
     
     <title>
-        
-            Hello World |
         
         Theme Redefine
     </title>
@@ -189,7 +187,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">Hello World</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;"></h1></span>
             </div>
 
             
@@ -208,8 +206,8 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-01-22 21:16:47</span>
-        <span class="mobile">2023-01-22 21:16</span>
+        <span class="pc">2023-05-07 19:37:39</span>
+        <span class="mobile">2023-05-07 19:37</span>
     </span>
     
     
@@ -230,19 +228,83 @@
             
 
             <div class="article-content markdown-body">
-                <p>Welcome to <a class="link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>! This is your very first post. Check <a class="link" target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link" target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> or you can ask me on <a class="link" target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure></div>
+                <p><a href="./uploads/2020/10/wp_editor_md_bafa8f97231eacede11cc33d64e7b0ab.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_bafa8f97231eacede11cc33d64e7b0ab.jpg"></a></p>
+<h1 id="1-创建多个线程"><a href="#1-创建多个线程" class="headerlink" title="1.创建多个线程"></a>1.创建多个线程</h1><pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
 
-<p>More info: <a class="link" target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
+void myprint(int i) &#123;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程开始运行&quot; &lt;&lt; endl;
 
-<p>More info: <a class="link" target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div>
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程运行结束&quot; &lt;&lt; endl;
+&#125;
 
-<p>More info: <a class="link" target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a class="link" target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+int main()
+&#123;
+    vector&lt;thread&gt; mythreads;
+
+    for (int i = 0; i &lt; 10; i++) &#123;
+        mythreads.push_back(thread(myprint, i));
+    &#125;
+
+    for (auto iter = mythreads.begin(); iter != mythreads.end(); ++iter) &#123;
+        iter-&gt;detach();
+    &#125;
+
+    cout &lt;&lt; &quot;主线程运行结束&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="2-数据共享问题"><a href="#2-数据共享问题" class="headerlink" title="2 数据共享问题"></a>2 数据共享问题</h1><h2 id="2-1-只读数据"><a href="#2-1-只读数据" class="headerlink" title="2.1 只读数据"></a>2.1 只读数据</h2><pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; g_v = &#123; 1, 2, 3 &#125;;  //这种创建方法是C++11新特性
+
+void myprint(int i) &#123;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程开始运行&quot; &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;线程ID为&quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; &quot;打印&quot; &lt;&lt; g_v[0] &lt;&lt; g_v[1] &lt;&lt; g_v[2] &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程运行结束&quot; &lt;&lt; endl;
+&#125;
+
+
+int main()
+&#123;
+    vector&lt;thread&gt; mythreads;
+
+    for (int i = 0; i &lt; 10; i++) &#123;
+        mythreads.push_back(thread(myprint, i));
+    &#125;
+
+    for (auto iter = mythreads.begin(); iter != mythreads.end(); ++iter) &#123;
+        iter-&gt;join();
+    &#125;
+
+    cout &lt;&lt; &quot;主线程运行结束&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p><strong>只读数据是安全的</strong></p>
+<h2 id="2-2-有读有写的数据"><a href="#2-2-有读有写的数据" class="headerlink" title="2.2 有读有写的数据"></a>2.2 有读有写的数据</h2><ul>
+<li><p>若不加处理，就会出错</p>
+</li>
+<li><p>最简单的防止崩溃方法：读的时候不能写，写的时候不能读。</p>
+</li>
+<li><p>写的动作分10小步，由于任务切换，导致各种诡异的事情发生（最可能的还是崩溃）</p>
+<p>#include <iostream><br>#include <thread><br>#include <algorithm><br>#include <vector><br>#include <list><br>using namespace std;</list></vector></algorithm></thread></iostream></p>
+<p>&#x2F;&#x2F;调用类对象的成员函数的方式来创建线程</p>
+<p>class A {<br>public:<br>void inMsgRecvQueue()<br>{<br>    for (int i &#x3D; 0; i &lt; 10000; i++) {<br>        cout &lt;&lt; “消息队列插入一个元素 “ &lt;&lt; i &lt;&lt; endl;<br>        msgRecvQueue.push_back(i);<br>    }<br>}<br><br>void outMsgRecgQueue() {<br>    for (int i &#x3D; 0; i &lt; 10000; i++) {<br>        if (!msgRecvQueue.empty()) {<br>            &#x2F;&#x2F;消息队列非空<br>            int command &#x3D; msgRecvQueue.front();  &#x2F;&#x2F;取出第一个元素<br>            msgRecvQueue.pop_front();<br>        }<br>        else {<br>            &#x2F;&#x2F;消息队列为空<br>            cout &lt;&lt; “outMsgRecgQueue执行，目前消息队列为空” &lt;&lt; endl;<br>        }<br>    }<br>}<br>private:<br>list<int> msgRecvQueue;  &#x2F;&#x2F;消息队列<br>};</int></p>
+<p>int main()<br>{<br>A myobja;<br>std::thread myOutnMsgObj(&amp;A::outMsgRecgQueue, &amp;myobja);<br>std::thread myInnMsgObj(&amp;A::inMsgRecvQueue, &amp;myobja);<br><br>&#x2F;&#x2F;这里必须使用引用，否则线程会重新拷贝构造一个对象，<br>&#x2F;&#x2F;但是使用引用就需要考虑类对象的使用周期，必须在主线程使用结束<br><br>myOutnMsgObj.join();<br>myInnMsgObj.join();<br><br>return 0;<br>}</p>
+</li>
+</ul>
+<p><a href="./uploads/2020/10/wp_editor_md_56ff3faeabf4293ba3404c666a7ccf79.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_56ff3faeabf4293ba3404c666a7ccf79.jpg"></a><br>程序会出现有读有写的过程</p>
 
             </div>
 
@@ -250,11 +312,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：Hello World</li>
+        <li>Post title：</li>
         <li>Post author：The Redefine Team</li>
-        <li>Create time：2023-01-22 21:16:47</li>
+        <li>Create time：2023-05-07 19:37:39</li>
         <li>
-            Post link：https://redefine.ohevan.com/2023/01/22/hello-world/
+            Post link：https://redefine.ohevan.com/2023/05/07/C++并行开发4-创建多个线程，数据共享问题分析/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -273,18 +335,33 @@
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%915-%E4%BA%92%E6%96%A5%E9%87%8F%E6%A6%82%E5%BF%B5%E3%80%81%E7%94%A8%E6%B3%95%E3%80%81%E6%AD%BB%E9%94%81%E6%BC%94%E7%A4%BA%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%AF%A6%E8%A7%A3/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">我的第一篇hexo博客</span>
+                                    <span class="post-nav-title-item"></span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
                         </div>
                     
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%913-%E7%BA%BF%E7%A8%8B%E4%BC%A0%E5%8F%82%E8%AF%A6%E8%A7%A3%EF%BC%8Cdetach()%E5%A4%A7%E5%9D%91%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%81%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item"></span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
                     
                 </div>
             
@@ -297,8 +374,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Hello World</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B"><span class="nav-text">1.创建多个线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98"><span class="nav-text">2 数据共享问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%8F%AA%E8%AF%BB%E6%95%B0%E6%8D%AE"><span class="nav-text">2.1 只读数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%9C%89%E8%AF%BB%E6%9C%89%E5%86%99%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">2.2 有读有写的数据</span></a></li></ol></li></ol>
 
     </div>
 </div>

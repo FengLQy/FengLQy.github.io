@@ -6,15 +6,13 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="The Redefine Team">
-    <link rel="canonical" href="http://example.com/2023/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" />
+    <link rel="canonical" href="http://example.com/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9110-future%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E3%80%81shared_future%E3%80%81atomic/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
     <link rel="shortcut icon" href="/images/redefine-logo.svg">
     
     <title>
-        
-            我的第一篇hexo博客 |
         
         Theme Redefine
     </title>
@@ -189,7 +187,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">我的第一篇hexo博客</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;"></h1></span>
             </div>
 
             
@@ -208,8 +206,8 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-03-18 20:51:44</span>
-        <span class="mobile">2023-03-18 20:51</span>
+        <span class="pc">2023-05-07 19:37:39</span>
+        <span class="mobile">2023-05-07 19:37</span>
     </span>
     
     
@@ -230,8 +228,155 @@
             
 
             <div class="article-content markdown-body">
-                <p>测试效果：</p>
-<p><img lazyload src="/images/loading.svg" data-src="F:\个人博客\HexoBlog\blog\source_posts\pic\bev1.png"></p>
+                <p><a href="./uploads/2020/10/wp_editor_md_e2490736395ba30a6ccd56b4b421cf8c.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_e2490736395ba30a6ccd56b4b421cf8c.jpg"></a></p>
+<h2 id="std-future的其他成员函数"><a href="#std-future的其他成员函数" class="headerlink" title="std::future的其他成员函数"></a>std::future的其他成员函数</h2><h3 id="1-std-future-status"><a href="#1-std-future-status" class="headerlink" title="1. std::future_status"></a>1. std::future_status</h3><pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;mutex&gt;
+#include &lt;future&gt;   //引入std::future头文件
+using namespace std;
+
+int my_thread() &#123;  //线程入口函数
+    cout &lt;&lt; &quot;mythread start&quot; &lt;&lt; &quot; threadid is = &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    std::chrono::milliseconds dura(5000);  //休息了5s
+    std::this_thread::sleep_for(dura);
+    cout &lt;&lt; &quot;over &quot; &lt;&lt; endl;
+    return 5;
+&#125;
+
+int main()
+&#123;
+    //一、feature其他成员函数
+    cout &lt;&lt; &quot;main &quot; &lt;&lt; &quot;thread id is &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; endl;
+    std::future&lt;int&gt; result = std::async(my_thread);  //async:异步; 
+
+    cout &lt;&lt; &quot;continue &quot; &lt;&lt; endl;
+
+    //枚举类型
+    std::future_status status = result.wait_for(std::chrono::seconds(6)); //等待1s
+    if (status == std::future_status::timeout) &#123;
+        //超时，表示线程还没有结束完
+        cout &lt;&lt; &quot;线程还没有执行完， 超时&quot; &lt;&lt; endl;
+    &#125;
+    else if(status == std::future_status::ready)&#123;
+        //表示线程成功返回
+        cout &lt;&lt; &quot;线程成功返回&quot; &lt;&lt; endl;
+        cout &lt;&lt; result.get() &lt;&lt; endl;
+    &#125;
+    else if (status == std::future_status::deferred) &#123;
+        //如果    std::future&lt;int&gt; result = std::async(std::launch::deferred, my_thread);  //async:异步; 
+        cout &lt;&lt; &quot;线程被延迟执行&quot; &lt;&lt; endl;
+        cout &lt;&lt; result.get() &lt;&lt; endl;
+    &#125;
+
+    cout &lt;&lt; &quot;主线程结束 &quot; &lt;&lt; endl;
+&#125;
+</code></pre>
+<h2 id="std-shared-future"><a href="#std-shared-future" class="headerlink" title="std::shared_future"></a>std::shared_future</h2><p>std::future get是一个左移操作，所以只能有一个get() 可以将future转化为shared_future，使得可以多次get()</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;mutex&gt;
+#include &lt;future&gt;   //引入std::future头文件
+using namespace std;
+
+// 三、 std::promise, 类模板
+// 我们能够在某个线程中给它赋值，然后再在其他线程中把这个值取出来
+
+void mythread(std::promise&lt;int&gt;&amp; temp, int calc) &#123;
+    // 做一些运算
+    calc++;
+    calc *= 10;
+
+    std::chrono::milliseconds dura(5000);
+    std::this_thread::sleep_for(dura);
+
+    int result = calc;
+    temp.set_value(result); //结果已经保存到了temp中
+&#125;
+
+
+void mythread2(std::shared_future&lt;int&gt;&amp; temp) &#123;
+    auto result = temp.get();  //std::future get是一个左移操作，所以只能有有一个get 
+    result = temp.get();  
+    result = temp.get();   //std::shared_future可以多次定义
+
+    cout &lt;&lt; &quot;mythread2 result is&quot; &lt;&lt; result &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    std::promise&lt;int&gt; myprom;
+    std::thread t1(mythread, std::ref(myprom), 180);
+    t1.join();
+
+    //获取结果
+    std::future&lt;int&gt; fu1 = myprom.get_future();  //promise 和 future绑定，用于获取线程返回值
+    //auto result = fu1.get();
+    fu1.valid(); //判断fu1里面是否有有效值
+    std::shared_future&lt;int&gt; share_res(std::move(fu1));  //执行完毕后，share_res有值了
+    //以下都可以变成shared_future
+    //std::shared_future&lt;int&gt; share_res = std::move(fu1);
+    //std::shared_future&lt;int&gt; share_res(fu1.share()); 
+
+    std::thread t2(mythread2, std::ref(share_res));
+    t2.join();
+
+    cout &lt;&lt; &quot;主线程结束 &quot; &lt;&lt; endl;
+&#125;
+</code></pre>
+<h2 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h2><p><a href="./uploads/2020/10/wp_editor_md_aae39436a94ea570c328dee8aee28461.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_aae39436a94ea570c328dee8aee28461.jpg"></a><br>两个线程同时对某一个数进行连续加是不安全的</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;mutex&gt;
+#include &lt;future&gt;   //引入std::future头文件
+using namespace std;
+
+int g_value = 0;
+
+void my_thread() &#123;
+    for (int i = 0; i &lt; 1000000; i++) &#123;
+        g_value++;
+    &#125;
+&#125;
+
+int main() &#123;
+    thread t1(my_thread);
+    thread t2(my_thread);
+
+    t1.join();
+    t2.join();
+    cout &lt;&lt; &quot;value is &quot; &lt;&lt; g_value &lt;&lt; endl;
+
+    return 0;
+&#125;
+</code></pre>
+<p><a href="./uploads/2020/10/wp_editor_md_aa8d42679becbd75e40f3d66b839f8c0.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_aa8d42679becbd75e40f3d66b839f8c0.jpg"></a></p>
+<pre><code>void my_thread() &#123;
+    for (int i = 0; i &lt; 1000000; i++) &#123;
+        g_mymutex.lock();
+        g_value++;
+        g_mymutex.unlock();
+    &#125;
+&#125;
+</code></pre>
+<p>锁完之后是正常的。 原子操作可以理解成一种多线程中不会被打断的程序执行片段。 互斥量一般针对的是一段代码；原子操作一般针对于某一个变量。<br>原子操作一般都是指不可分割的操作,一般用于计数中进行使用</p>
+<pre><code>std::atomic&lt;int&gt; g_value = 0; //原子操作
+
+void my_thread() &#123;
+    for (int i = 0; i &lt; 1000000; i++) &#123;
+        //g_mymutex.lock();
+        g_value++;
+        //g_mymutex.unlock();
+    &#125;
+&#125;
+</code></pre>
 
             </div>
 
@@ -239,11 +384,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：我的第一篇hexo博客</li>
+        <li>Post title：</li>
         <li>Post author：The Redefine Team</li>
-        <li>Create time：2023-03-18 20:51:44</li>
+        <li>Create time：2023-05-07 19:37:39</li>
         <li>
-            Post link：https://redefine.ohevan.com/2023/03/18/我的第一篇hexo博客/
+            Post link：https://redefine.ohevan.com/2023/05/07/C++并行开发10-future其他成员函数、shared_future、atomic/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -262,13 +407,13 @@
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/03/18/text/"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9111-%20std__atomic%E7%BB%AD%E8%B0%88%E3%80%81std__async%E6%B7%B1%E5%85%A5%E8%B0%88/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">text</span>
+                                    <span class="post-nav-title-item"></span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
@@ -278,10 +423,10 @@
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/01/22/hello-world/"
+                            href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%919-async%E3%80%81future%E3%80%81packaged_task%E3%80%81promise/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Hello World</span>
+                                    <span class="post-nav-title-item"></span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -301,8 +446,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">我的第一篇hexo博客</div>
-        
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#std-future%E7%9A%84%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-text">std::future的其他成员函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-std-future-status"><span class="nav-text">1. std::future_status</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-shared-future"><span class="nav-text">std::shared_future</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atomic"><span class="nav-text">atomic</span></a></li></ol>
 
     </div>
 </div>
