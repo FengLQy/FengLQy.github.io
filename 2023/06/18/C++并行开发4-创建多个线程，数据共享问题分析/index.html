@@ -6,7 +6,7 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="The Redefine Team">
-    <link rel="canonical" href="http://example.com/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%911-%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" />
+    <link rel="canonical" href="http://example.com/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%914-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
@@ -14,7 +14,7 @@
     
     <title>
         
-            C++并行开发1-并发基本概念及实现，进程、线程基本概念 |
+            C++并行开发4-创建多个线程，数据共享问题分析 |
         
         Theme Redefine
     </title>
@@ -189,7 +189,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">C++并行开发1-并发基本概念及实现，进程、线程基本概念</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">C++并行开发4-创建多个线程，数据共享问题分析</h1></span>
             </div>
 
             
@@ -241,61 +241,83 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>C++多线程是实际工程经验中必不可少的一个技能点，因此学习C++多线程是非常有必要的。<br>本次整理的笔记，主要参考B站视频，以及CSDN博客，对C++多线程进行整理。</p>
-<h1 id="1、并发基本概念及实现，进程线程基本概念"><a href="#1、并发基本概念及实现，进程线程基本概念" class="headerlink" title="1、并发基本概念及实现，进程线程基本概念"></a>1、并发基本概念及实现，进程线程基本概念</h1><p><a href="./uploads/2020/09/wp_editor_md_c16ac38d891ddf7d6527ffd3e5bf008d.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/09/wp_editor_md_c16ac38d891ddf7d6527ffd3e5bf008d.jpg"></a></p>
-<h2 id="1-1-并发"><a href="#1-1-并发" class="headerlink" title="1.1 并发"></a>1.1 并发</h2><ul>
-<li>以往计算机，单核cpu（中央处理器）：某一个时刻只能执行一个任务，由操作系统调度，每秒钟进行多次所谓的“任务切换”。并发的假象（不是真正的并发），切换（上下文切换）时要保存变量的状态、执行进度等，存在时间开销；</li>
-<li>随着硬件发展，出现了多处理器计算机：用于服务器和高性能计算领域。台式机：在一块芯片上有多核（一个CPU内有多个运算核心，对于操作系统来说，每个核心都是作为单独的CPU对待的）：双核，4核，8核，10核（自己的笔记本是4核8线程的）。能够实现真正的并行执行多个任务（硬件并发）</li>
-<li>使用并发的原因：主要就是同时可以干多个事，提高性能</li>
+                <p><a href="./uploads/2020/10/wp_editor_md_bafa8f97231eacede11cc33d64e7b0ab.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_bafa8f97231eacede11cc33d64e7b0ab.jpg"></a></p>
+<h1 id="1-创建多个线程"><a href="#1-创建多个线程" class="headerlink" title="1.创建多个线程"></a>1.创建多个线程</h1><pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+void myprint(int i) &#123;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程开始运行&quot; &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程运行结束&quot; &lt;&lt; endl;
+&#125;
+
+
+int main()
+&#123;
+    vector&lt;thread&gt; mythreads;
+
+    for (int i = 0; i &lt; 10; i++) &#123;
+        mythreads.push_back(thread(myprint, i));
+    &#125;
+
+    for (auto iter = mythreads.begin(); iter != mythreads.end(); ++iter) &#123;
+        iter-&gt;detach();
+    &#125;
+
+    cout &lt;&lt; &quot;主线程运行结束&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="2-数据共享问题"><a href="#2-数据共享问题" class="headerlink" title="2 数据共享问题"></a>2 数据共享问题</h1><h2 id="2-1-只读数据"><a href="#2-1-只读数据" class="headerlink" title="2.1 只读数据"></a>2.1 只读数据</h2><pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; g_v = &#123; 1, 2, 3 &#125;;  //这种创建方法是C++11新特性
+
+void myprint(int i) &#123;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程开始运行&quot; &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;线程ID为&quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; &quot;打印&quot; &lt;&lt; g_v[0] &lt;&lt; g_v[1] &lt;&lt; g_v[2] &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; i &lt;&lt; &quot;个线程运行结束&quot; &lt;&lt; endl;
+&#125;
+
+
+int main()
+&#123;
+    vector&lt;thread&gt; mythreads;
+
+    for (int i = 0; i &lt; 10; i++) &#123;
+        mythreads.push_back(thread(myprint, i));
+    &#125;
+
+    for (auto iter = mythreads.begin(); iter != mythreads.end(); ++iter) &#123;
+        iter-&gt;join();
+    &#125;
+
+    cout &lt;&lt; &quot;主线程运行结束&quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p><strong>只读数据是安全的</strong></p>
+<h2 id="2-2-有读有写的数据"><a href="#2-2-有读有写的数据" class="headerlink" title="2.2 有读有写的数据"></a>2.2 有读有写的数据</h2><ul>
+<li><p>若不加处理，就会出错</p>
+</li>
+<li><p>最简单的防止崩溃方法：读的时候不能写，写的时候不能读。</p>
+</li>
+<li><p>写的动作分10小步，由于任务切换，导致各种诡异的事情发生（最可能的还是崩溃）</p>
+<p>#include <iostream><br>#include <thread><br>#include <algorithm><br>#include <vector><br>#include <list><br>using namespace std;</list></vector></algorithm></thread></iostream></p>
+<p>&#x2F;&#x2F;调用类对象的成员函数的方式来创建线程</p>
+<p>class A {<br>public:<br>void inMsgRecvQueue()<br>{<br>    for (int i &#x3D; 0; i &lt; 10000; i++) {<br>        cout &lt;&lt; “消息队列插入一个元素 “ &lt;&lt; i &lt;&lt; endl;<br>        msgRecvQueue.push_back(i);<br>    }<br>}<br><br>void outMsgRecgQueue() {<br>    for (int i &#x3D; 0; i &lt; 10000; i++) {<br>        if (!msgRecvQueue.empty()) {<br>            &#x2F;&#x2F;消息队列非空<br>            int command &#x3D; msgRecvQueue.front();  &#x2F;&#x2F;取出第一个元素<br>            msgRecvQueue.pop_front();<br>        }<br>        else {<br>            &#x2F;&#x2F;消息队列为空<br>            cout &lt;&lt; “outMsgRecgQueue执行，目前消息队列为空” &lt;&lt; endl;<br>        }<br>    }<br>}<br>private:<br>list<int> msgRecvQueue;  &#x2F;&#x2F;消息队列<br>};</int></p>
+<p>int main()<br>{<br>A myobja;<br>std::thread myOutnMsgObj(&amp;A::outMsgRecgQueue, &amp;myobja);<br>std::thread myInnMsgObj(&amp;A::inMsgRecvQueue, &amp;myobja);<br><br>&#x2F;&#x2F;这里必须使用引用，否则线程会重新拷贝构造一个对象，<br>&#x2F;&#x2F;但是使用引用就需要考虑类对象的使用周期，必须在主线程使用结束<br><br>myOutnMsgObj.join();<br>myInnMsgObj.join();<br><br>return 0;<br>}</p>
+</li>
 </ul>
-<h2 id="1-2-可执行程序"><a href="#1-2-可执行程序" class="headerlink" title="1.2 可执行程序"></a>1.2 可执行程序</h2><ul>
-<li>磁盘上的一个文件，windows下，扩展名为.exe；linux下，ls -la，rwx（可读可写可执行）</li>
-</ul>
-<h2 id="1-3-进程"><a href="#1-3-进程" class="headerlink" title="1.3 进程"></a>1.3 进程</h2><p>运行一个可执行程序，在windows下，可双击；在linux下，.&#x2F;文件名<br>进行，一个可执行程序运行起来了，就叫创建了一个进程。进程就是运行起来的可执行程序。</p>
-<h2 id="1-4-线程"><a href="#1-4-线程" class="headerlink" title="1.4 线程"></a>1.4 线程</h2><ul>
-<li>a) 每个进程（执行起来的可执行程序），都有唯一的一个主线程</li>
-<li>b) 当执行可执行程序时，产生一个进程后，这个主线程就随着这个进程默默启动起来了</li>
-<li>ctrl+F5运行这个程序的时候，实际上是进程的主线程来执行（调用）这个main函数中的代码</li>
-<li>线程：用来执行代码的。线程这个东西，可以理解为一条代码的执行通路</li>
-</ul>
-<hr>
-<ul>
-<li>除了主线程之外，可以通过写代码来创建其他线程，其他线程走的是别的道路，甚至区不同的地方</li>
-<li>每创建一个新线程，就可以在同一时刻，多干一个不同的事（多走一条不同的代码执行路径）</li>
-</ul>
-<hr>
-<ul>
-<li>线程并不是越多越好，每个线程，都需要一个独立的堆栈空间（大约1M），线程之间的切换要保存很多中间状态，切换也会耗费本该属于程序运行的时间</li>
-<li>多线程（并发）</li>
-</ul>
-<p>必须使用多线程的一个例子 <a href="./uploads/2020/09/wp_editor_md_03f1063f26d8283dc8705775febb47d2.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/09/wp_editor_md_03f1063f26d8283dc8705775febb47d2.jpg"></a></p>
-<h1 id="二、并发的实现方法"><a href="#二、并发的实现方法" class="headerlink" title="二、并发的实现方法"></a>二、并发的实现方法</h1><p>实现并发的手段： a）通过多个进程实现并发 b）在单独的进程中，写代码创建除了主线程之外的其他线程来实现并发</p>
-<h2 id="2-1-多进程并发"><a href="#2-1-多进程并发" class="headerlink" title="2.1 多进程并发"></a>2.1 多进程并发</h2><ul>
-<li>启动word是一个进程，启动浏览器也是一个进程</li>
-<li>比如账号服务器一个进程，游戏服务器一个进程。</li>
-<li>服务器进程之间存在通信（同一个电脑上： <strong>管道，文件，消息队列，共享内存</strong> ）；（不同电脑上：socket通信技术）</li>
-</ul>
-<h2 id="2-2-多线程并发"><a href="#2-2-多线程并发" class="headerlink" title="2.2 多线程并发"></a>2.2 多线程并发</h2><ul>
-<li>线程：感觉像是轻量级的进程。每个进程有自己独立的运行路径，但一个进程中的所有线程共享地址空间（共享内存），全局变量、全局内存、全局引用都可以在线程之间传递，所以多线程开销远远小于多进程</li>
-<li>多线程的共享数据有数据一致性控制问题</li>
-<li>多进程并发核多线程并发可以混合使用，但建议优先考虑多线程技术</li>
-</ul>
-<h2 id="2-3-总结"><a href="#2-3-总结" class="headerlink" title="2.3 总结"></a>2.3 总结</h2><ul>
-<li>多线程和多进程相比的优点</li>
-</ul>
-<ol>
-<li>线程启动更快，更加轻量级；</li>
-<li>启动系统资源更少，执行速度更快</li>
-<li>不同线程之前数据交互更加方便</li>
-</ol>
-<ul>
-<li>多线程和多进程相比的缺点 数据一致性问题</li>
-</ul>
-<h1 id="三、-C-新标准"><a href="#三、-C-新标准" class="headerlink" title="三、 C++新标准"></a>三、 C++新标准</h1><ul>
-<li>以往 windows：CreateThread(), _beginthread(),_beginthreadexe()创建线程；linux：pthread_create()创建线程；不能跨平台 临界区，互斥量 POSIX thread(pthread):跨平台，但要做一番配置，也不方便</li>
-<li>C++11 从C++11新标准，C++语言本身增加对多线程的支持，意味着可移植性（跨平台），这大大减少开发人员的工作量</li>
-</ul>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411L7ak?p=3">视频：c++11并发与多线程视频课程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38231713/category_10001159.html">CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a href="./uploads/2020/10/wp_editor_md_56ff3faeabf4293ba3404c666a7ccf79.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_56ff3faeabf4293ba3404c666a7ccf79.jpg"></a><br>程序会出现有读有写的过程</p>
 
             </div>
 
@@ -303,11 +325,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：C++并行开发1-并发基本概念及实现，进程、线程基本概念</li>
+        <li>Post title：C++并行开发4-创建多个线程，数据共享问题分析</li>
         <li>Post author：The Redefine Team</li>
         <li>Create time：2023-06-18 22:40:09</li>
         <li>
-            Post link：https://redefine.ohevan.com/2023/06/18/C++并行开发1-并发基本概念及实现，进程、线程基本概念/
+            Post link：https://redefine.ohevan.com/2023/06/18/C++并行开发4-创建多个线程，数据共享问题分析/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -323,14 +345,29 @@
             
                 <div class="article-nav">
                     
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%915-%E4%BA%92%E6%96%A5%E9%87%8F%E6%A6%82%E5%BF%B5%E3%80%81%E7%94%A8%E6%B3%95%E3%80%81%E6%AD%BB%E9%94%81%E6%BC%94%E7%A4%BA%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%AF%A6%E8%A7%A3/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++并行开发5-互斥量概念、用法、死锁演示及解决详解</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9110-future%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E3%80%81shared_future%E3%80%81atomic/"
+                            href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%913-%E7%BA%BF%E7%A8%8B%E4%BC%A0%E5%8F%82%E8%AF%A6%E8%A7%A3%EF%BC%8Cdetach()%E5%A4%A7%E5%9D%91%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%81%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">C++并行开发10-future其他成员函数、shared_future、atomic</span>
+                                    <span class="post-nav-title-item">C++并行开发3-线程传参详解，detach()大坑，成员函数做线程函数</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -350,8 +387,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">C++并行开发1-并发基本概念及实现，进程、线程基本概念</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">1、并发基本概念及实现，进程线程基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%B9%B6%E5%8F%91"><span class="nav-text">1.1 并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-text">1.2 可执行程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E8%BF%9B%E7%A8%8B"><span class="nav-text">1.3 进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E7%BA%BF%E7%A8%8B"><span class="nav-text">1.4 线程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B9%B6%E5%8F%91%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-text">二、并发的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%B9%B6%E5%8F%91"><span class="nav-text">2.1 多进程并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91"><span class="nav-text">2.2 多线程并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E6%80%BB%E7%BB%93"><span class="nav-text">2.3 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81-C-%E6%96%B0%E6%A0%87%E5%87%86"><span class="nav-text">三、 C++新标准</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="nav-text">参考：</span></a></li></ol>
+        <div class="page-title">C++并行开发4-创建多个线程，数据共享问题分析</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B"><span class="nav-text">1.创建多个线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98"><span class="nav-text">2 数据共享问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%8F%AA%E8%AF%BB%E6%95%B0%E6%8D%AE"><span class="nav-text">2.1 只读数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%9C%89%E8%AF%BB%E6%9C%89%E5%86%99%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">2.2 有读有写的数据</span></a></li></ol></li></ol>
 
     </div>
 </div>

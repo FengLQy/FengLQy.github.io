@@ -193,33 +193,45 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%915-%E4%BA%92%E6%96%A5%E9%87%8F%E6%A6%82%E5%BF%B5%E3%80%81%E7%94%A8%E6%B3%95%E3%80%81%E6%AD%BB%E9%94%81%E6%BC%94%E7%A4%BA%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%AF%A6%E8%A7%A3/">
-                        
+                    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%916-unique_lock%E8%AF%A6%E8%A7%A3/">
+                        C++并行开发6-unique_lock详解.md
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
                         
-1. 互斥量互斥量就是个类对象，可以理解为一把锁，多个线程尝试用lock()成员函数来加锁，只有一个线程能锁定成功，如果没有锁成功，那么流程将卡在lock()这里不断尝试去锁定。使用互斥量的一个代码示例：
-1.1 使用lock, unlock#in...
+一、 unique_lock 取代lock_guardadopt_lock表示这个互斥量已经被lock了，必须把互斥量提前lock,否则会报异常
+try_to_lock当outMsgRecgQueue线程有一个sleep的时候，会导致另一个inMs...
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 07 2023 19:37:39 GMT+0800">
+            <span class="home-article-date" data-date="Sun Jun 18 2023 22:40:09 GMT+0800">
                 
-                    2023/05/07
+                    2023/06/18
                 
             </span>
         </span>
         
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
         
     </div>
 
-    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%915-%E4%BA%92%E6%96%A5%E9%87%8F%E6%A6%82%E5%BF%B5%E3%80%81%E7%94%A8%E6%B3%95%E3%80%81%E6%AD%BB%E9%94%81%E6%BC%94%E7%A4%BA%E5%8F%8A%E8%A7%A3%E5%86%B3%E8%AF%A6%E8%A7%A3/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%916-unique_lock%E8%AF%A6%E8%A7%A3/">Read more<span class="seo-reader-text">C++并行开发6-unique_lock详解.md</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -231,36 +243,48 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%914-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/">
-                        
+                    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%918-condition_variable%E3%80%81wait%E3%80%81notify_one%E3%80%81notify_all/">
+                        C++并行开发8-condition_variable、wait、notify_one、notify_all
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
                         
-1.创建多个线程#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-using namespace...
+std::condition_variablecondition_variable实际上是一个类，说白了就是等待一个条件的达成
+
+notify_one(); 尝试把wait的线程唤醒
+
+wait() 用来等一个东西 如果第二个参数返回true，那么...
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 07 2023 19:37:39 GMT+0800">
+            <span class="home-article-date" data-date="Sun Jun 18 2023 22:40:09 GMT+0800">
                 
-                    2023/05/07
+                    2023/06/18
                 
             </span>
         </span>
         
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
         
     </div>
 
-    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%914-%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%918-condition_variable%E3%80%81wait%E3%80%81notify_one%E3%80%81notify_all/">Read more<span class="seo-reader-text">C++并行开发8-condition_variable、wait、notify_one、notify_all</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -272,37 +296,44 @@ using namespace...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%913-%E7%BA%BF%E7%A8%8B%E4%BC%A0%E5%8F%82%E8%AF%A6%E8%A7%A3%EF%BC%8Cdetach()%E5%A4%A7%E5%9D%91%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%81%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0/">
-                        
+                    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%919-async%E3%80%81future%E3%80%81packaged_task%E3%80%81promise/">
+                        C++并行开发9-async、future、packaged_task、promise
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        tips: shift + F9可以查找相关地址
-thread传入类对象#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;thread&gt;
-
-
-using namespa...
+                        
+std::future 使用小试牛刀一、 std::async、std::future创建后台任务并返回值 希望线程返回一个结果std::async是一个函数模板，用来启动一个异步任务，启动一个异步任务之后，他返回一个future对象 什么是“启动...
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 07 2023 19:37:39 GMT+0800">
+            <span class="home-article-date" data-date="Sun Jun 18 2023 22:40:09 GMT+0800">
                 
-                    2023/05/07
+                    2023/06/18
                 
             </span>
         </span>
         
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
         
     </div>
 
-    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%913-%E7%BA%BF%E7%A8%8B%E4%BC%A0%E5%8F%82%E8%AF%A6%E8%A7%A3%EF%BC%8Cdetach()%E5%A4%A7%E5%9D%91%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%81%9A%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%919-async%E3%80%81future%E3%80%81packaged_task%E3%80%81promise/">Read more<span class="seo-reader-text">C++并行开发9-async、future、packaged_task、promise</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -314,84 +345,44 @@ using namespa...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/">
-                        
+                    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9114-%E8%A1%A5%E5%85%85%E5%AD%A6%E4%B9%A0/">
+                        C++并行开发14-补充学习
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        
-创建线程的简单演示
-首先，在一个程序中一个进程结束的标志是main函数执行结束，因此在正常情况下，当主线程执行完毕后，其他子线程如果没有执行完毕，也会被操作系统强行关闭
-
-自己创建的进程也是从一个函数开始
-
-
-threadthread是一个类，只能...
+                        前言主要是C++异步和同步线程进行总结
+异步编程线程同步主要是为了解决对共享数据的竞争访问问题，所以线程同步主要是对共享数据的访问同步化（按照既定的先后次序，一个访问需要阻塞等待前一个访问完成后才能开始）。这篇文章谈到的异步编程主要是针对任务或线程的...
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 07 2023 19:37:38 GMT+0800">
+            <span class="home-article-date" data-date="Sun Jun 18 2023 22:40:09 GMT+0800">
                 
-                    2023/05/07
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%912-%E7%BA%BF%E7%A8%8B%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A4%9A%E6%B3%95%E3%80%81join%EF%BC%8Cdetach/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9113-%20%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E8%B0%88%E3%80%81%E6%95%B0%E9%87%8F%E8%B0%88%E3%80%81%E6%80%BB%E7%BB%93/">
-                        
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        
-补充的知识点
-wait的时候要考虑虚假唤醒，在第二参数上写好lambda表达式
-atomic支持赋值，但是支持
-
-atomic&lt;int&gt; a;
-atomic&lt;int&gt; a1(a.load());
-
-线程池
-线程数量
-线程极限...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 07 2023 19:37:38 GMT+0800">
-                
-                    2023/05/07
+                    2023/06/18
                 
             </span>
         </span>
         
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
         
     </div>
 
-    <a href="/2023/05/07/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9113-%20%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E8%B0%88%E3%80%81%E6%95%B0%E9%87%8F%E8%B0%88%E3%80%81%E6%80%BB%E7%BB%93/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9114-%E8%A1%A5%E5%85%85%E5%AD%A6%E4%B9%A0/">Read more<span class="seo-reader-text">C++并行开发14-补充学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
             </li>

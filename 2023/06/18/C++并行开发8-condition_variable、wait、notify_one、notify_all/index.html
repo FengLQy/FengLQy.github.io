@@ -6,7 +6,7 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="The Redefine Team">
-    <link rel="canonical" href="http://example.com/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%911-%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" />
+    <link rel="canonical" href="http://example.com/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%918-condition_variable%E3%80%81wait%E3%80%81notify_one%E3%80%81notify_all/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
@@ -14,7 +14,7 @@
     
     <title>
         
-            C++并行开发1-并发基本概念及实现，进程、线程基本概念 |
+            C++并行开发8-condition_variable、wait、notify_one、notify_all |
         
         Theme Redefine
     </title>
@@ -189,7 +189,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">C++并行开发1-并发基本概念及实现，进程、线程基本概念</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">C++并行开发8-condition_variable、wait、notify_one、notify_all</h1></span>
             </div>
 
             
@@ -241,61 +241,106 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>C++多线程是实际工程经验中必不可少的一个技能点，因此学习C++多线程是非常有必要的。<br>本次整理的笔记，主要参考B站视频，以及CSDN博客，对C++多线程进行整理。</p>
-<h1 id="1、并发基本概念及实现，进程线程基本概念"><a href="#1、并发基本概念及实现，进程线程基本概念" class="headerlink" title="1、并发基本概念及实现，进程线程基本概念"></a>1、并发基本概念及实现，进程线程基本概念</h1><p><a href="./uploads/2020/09/wp_editor_md_c16ac38d891ddf7d6527ffd3e5bf008d.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/09/wp_editor_md_c16ac38d891ddf7d6527ffd3e5bf008d.jpg"></a></p>
-<h2 id="1-1-并发"><a href="#1-1-并发" class="headerlink" title="1.1 并发"></a>1.1 并发</h2><ul>
-<li>以往计算机，单核cpu（中央处理器）：某一个时刻只能执行一个任务，由操作系统调度，每秒钟进行多次所谓的“任务切换”。并发的假象（不是真正的并发），切换（上下文切换）时要保存变量的状态、执行进度等，存在时间开销；</li>
-<li>随着硬件发展，出现了多处理器计算机：用于服务器和高性能计算领域。台式机：在一块芯片上有多核（一个CPU内有多个运算核心，对于操作系统来说，每个核心都是作为单独的CPU对待的）：双核，4核，8核，10核（自己的笔记本是4核8线程的）。能够实现真正的并行执行多个任务（硬件并发）</li>
-<li>使用并发的原因：主要就是同时可以干多个事，提高性能</li>
-</ul>
-<h2 id="1-2-可执行程序"><a href="#1-2-可执行程序" class="headerlink" title="1.2 可执行程序"></a>1.2 可执行程序</h2><ul>
-<li>磁盘上的一个文件，windows下，扩展名为.exe；linux下，ls -la，rwx（可读可写可执行）</li>
-</ul>
-<h2 id="1-3-进程"><a href="#1-3-进程" class="headerlink" title="1.3 进程"></a>1.3 进程</h2><p>运行一个可执行程序，在windows下，可双击；在linux下，.&#x2F;文件名<br>进行，一个可执行程序运行起来了，就叫创建了一个进程。进程就是运行起来的可执行程序。</p>
-<h2 id="1-4-线程"><a href="#1-4-线程" class="headerlink" title="1.4 线程"></a>1.4 线程</h2><ul>
-<li>a) 每个进程（执行起来的可执行程序），都有唯一的一个主线程</li>
-<li>b) 当执行可执行程序时，产生一个进程后，这个主线程就随着这个进程默默启动起来了</li>
-<li>ctrl+F5运行这个程序的时候，实际上是进程的主线程来执行（调用）这个main函数中的代码</li>
-<li>线程：用来执行代码的。线程这个东西，可以理解为一条代码的执行通路</li>
-</ul>
-<hr>
+                <p><a href="./uploads/2020/10/wp_editor_md_1595bb5abee495f272ec9f484e9d3272.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/10/wp_editor_md_1595bb5abee495f272ec9f484e9d3272.jpg"></a></p>
+<h1 id="std-condition-variable"><a href="#std-condition-variable" class="headerlink" title="std::condition_variable"></a>std::condition_variable</h1><p>condition_variable实际上是一个类，说白了就是等待一个条件的达成</p>
 <ul>
-<li>除了主线程之外，可以通过写代码来创建其他线程，其他线程走的是别的道路，甚至区不同的地方</li>
-<li>每创建一个新线程，就可以在同一时刻，多干一个不同的事（多走一条不同的代码执行路径）</li>
+<li><p>notify_one(); 尝试把wait的线程唤醒</p>
+</li>
+<li><p>wait() 用来等一个东西 如果第二个参数返回true，那么wait()直接返回,并继续执行 如果第二个参数返回false,那么wait()将解锁互斥量，并堵塞到本行一直堵塞到某一个线程调用notify_one为止； 如果wait()没有第二个参数，my_cond(sbguard1);那么就和第二个参数lambda直接返回false一样 wait()将解锁互斥量，并堵塞到本行，直到某一个线程调用notify_one成员函数为止</p>
+</li>
+<li><p>当其他线程用notify_one之后，wait就开始干活。干什么活呢？ a) wait()不断的尝试重新获取互斥量锁，如果获取不到，那么流程就卡在wait这里等着获取，如果获取到了锁，那么流程就继续 b) 上锁（实际获取到了锁就相当于上锁 ） b.1) 如果表达式为false，那wait又对互斥量解锁，然后又休眠，等待再次被notify_one()唤醒 b.2) 如果lambda表达式为true，则wait返回，流程可以继续执行（此时互斥量已被锁住）。 b.3) 如果wait没有第二个参数，则wait返回，流程走下来</p>
+<p>#include <iostream><br>#include <thread><br>#include <algorithm><br>#include <vector><br>#include <list><br>#include <mutex><br>using namespace std;</mutex></list></vector></algorithm></thread></iostream></p>
+<p>&#x2F;&#x2F;调用类对象的成员函数的方式来创建线程<br>class A {<br>public:<br>void inMsgRecvQueue()<br>{<br>    for (int i &#x3D; 0; i &lt; 10000; i++) {<br>        cout &lt;&lt; “inMsgRecvQueue执行，插入一个元素: “ &lt;&lt; i &lt;&lt; endl;<br>        std::unique_lock<a class="link" href="std::mutex">std::mutex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> sbguard1(my_mutex1);  &#x2F;&#x2F;尝试拿到锁头<br>        msgRecvQueue.push_back(i);<br>        my_cond.notify_one();  &#x2F;&#x2F;尝试把wait的线程唤醒<br>        &#x2F;&#x2F; …执行其他代码<br>    }<br>}<br><br>void outMsgRecgQueue() {<br>    int commond &#x3D; 0;<br>    while (true) {<br>        std::unique_lock<a class="link" href="std::mutex">std::mutex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> sbguard1(my_mutex1);<br>        &#x2F;&#x2F;wait() 用来等一个东西<br>        &#x2F;&#x2F; 如果第二个参数返回true，那么wait()直接返回<br>        &#x2F;&#x2F; 如果第二个参数返回false,那么wait()将解锁互斥量，并堵塞到本行<br>        &#x2F;&#x2F; 一直堵塞到某一个线程调用notify_one为止；<br>        &#x2F;&#x2F; 如果wait()没有第二个参数，my_cond(sbguard1);那么就和第二个参数lambda直接返回false一样<br>        &#x2F;&#x2F; wait()将解锁互斥量，并堵塞到本行，直到某一个线程调用notify_one成员函数为止<br>        &#x2F;&#x2F; 当其他线程用notify_one之后，wait就开始干活。干什么活呢？<br>        &#x2F;&#x2F; a) wait()不断的尝试重新获取互斥量锁，如果获取不到，那么流程就卡在wait这里等着获取，如果获取到了锁，那么流程就继续<br>        &#x2F;&#x2F; b) 上锁（实际获取到了锁就相当于上锁 ）<br>        &#x2F;&#x2F;    b.1) 如果表达式为false，那wait又对互斥量解锁，然后又休眠，等待再次被notify_one()唤醒<br>        &#x2F;&#x2F;    b.2) 如果lambda表达式为true，则wait返回，流程可以继续执行（此时互斥量已被锁住）。<br>        &#x2F;&#x2F;    b.3) 如果wait没有第二个参数，则wait返回，流程走下来<br>        my_cond.wait(sbguard1, [this] {<br>            if (!msgRecvQueue.empty())<br>                return true;<br>            return false;<br>        });<br><br>        &#x2F;&#x2F;流程走到这里，互斥锁一定是被锁着的, 同时是最少有一条数据的<br>        commond &#x3D; msgRecvQueue.front();<br>        msgRecvQueue.pop_front();<br>        sbguard1.unlock();<br>        cout &lt;&lt; “outMsgRecgQueue 执行, 取出一个元素” &lt;&lt; commond &lt;&lt; endl;<br>    }<br>}<br>private:<br>list<int> msgRecvQueue;  &#x2F;&#x2F;消息队列<br>std::mutex my_mutex1;&#x2F;&#x2F; 创建一个互斥量<br>std::condition_variable my_cond; &#x2F;&#x2F;生成一个条件对象<br>};</int></p>
+<p>int main()<br>{<br>&#x2F;&#x2F;条件变量condition_variable、wait、notify_one、notify_all<br>&#x2F;&#x2F;线程A,等待一个条件满足<br>&#x2F;&#x2F;线程B,专门向消息队列中扔数据<br>&#x2F;&#x2F;std::condition_variable实际上是一个类，说白了就是等待一个条件的达成<br>&#x2F;&#x2F;这个类需要和互斥量配合使用<br><br>A myobja;<br>std::thread myOutnMsgObj(&amp;A::outMsgRecgQueue, &amp;myobja);<br>std::thread myInnMsgObj(&amp;A::inMsgRecvQueue, &amp;myobja);<br><br>myOutnMsgObj.join();<br>myInnMsgObj.join();<br><br>return 0;<br>}</p>
+</li>
 </ul>
-<hr>
-<ul>
-<li>线程并不是越多越好，每个线程，都需要一个独立的堆栈空间（大约1M），线程之间的切换要保存很多中间状态，切换也会耗费本该属于程序运行的时间</li>
-<li>多线程（并发）</li>
-</ul>
-<p>必须使用多线程的一个例子 <a href="./uploads/2020/09/wp_editor_md_03f1063f26d8283dc8705775febb47d2.jpg"><img lazyload src="/images/loading.svg" data-src="/./uploads/2020/09/wp_editor_md_03f1063f26d8283dc8705775febb47d2.jpg"></a></p>
-<h1 id="二、并发的实现方法"><a href="#二、并发的实现方法" class="headerlink" title="二、并发的实现方法"></a>二、并发的实现方法</h1><p>实现并发的手段： a）通过多个进程实现并发 b）在单独的进程中，写代码创建除了主线程之外的其他线程来实现并发</p>
-<h2 id="2-1-多进程并发"><a href="#2-1-多进程并发" class="headerlink" title="2.1 多进程并发"></a>2.1 多进程并发</h2><ul>
-<li>启动word是一个进程，启动浏览器也是一个进程</li>
-<li>比如账号服务器一个进程，游戏服务器一个进程。</li>
-<li>服务器进程之间存在通信（同一个电脑上： <strong>管道，文件，消息队列，共享内存</strong> ）；（不同电脑上：socket通信技术）</li>
-</ul>
-<h2 id="2-2-多线程并发"><a href="#2-2-多线程并发" class="headerlink" title="2.2 多线程并发"></a>2.2 多线程并发</h2><ul>
-<li>线程：感觉像是轻量级的进程。每个进程有自己独立的运行路径，但一个进程中的所有线程共享地址空间（共享内存），全局变量、全局内存、全局引用都可以在线程之间传递，所以多线程开销远远小于多进程</li>
-<li>多线程的共享数据有数据一致性控制问题</li>
-<li>多进程并发核多线程并发可以混合使用，但建议优先考虑多线程技术</li>
-</ul>
-<h2 id="2-3-总结"><a href="#2-3-总结" class="headerlink" title="2.3 总结"></a>2.3 总结</h2><ul>
-<li>多线程和多进程相比的优点</li>
-</ul>
-<ol>
-<li>线程启动更快，更加轻量级；</li>
-<li>启动系统资源更少，执行速度更快</li>
-<li>不同线程之前数据交互更加方便</li>
-</ol>
-<ul>
-<li>多线程和多进程相比的缺点 数据一致性问题</li>
-</ul>
-<h1 id="三、-C-新标准"><a href="#三、-C-新标准" class="headerlink" title="三、 C++新标准"></a>三、 C++新标准</h1><ul>
-<li>以往 windows：CreateThread(), _beginthread(),_beginthreadexe()创建线程；linux：pthread_create()创建线程；不能跨平台 临界区，互斥量 POSIX thread(pthread):跨平台，但要做一番配置，也不方便</li>
-<li>C++11 从C++11新标准，C++语言本身增加对多线程的支持，意味着可移植性（跨平台），这大大减少开发人员的工作量</li>
-</ul>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411L7ak?p=3">视频：c++11并发与多线程视频课程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38231713/category_10001159.html">CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="notify-one-amp-notify-all"><a href="#notify-one-amp-notify-all" class="headerlink" title="notify_one &amp; notify_all"></a>notify_one &amp; notify_all</h2><p>notify_one只是通知某一个正在wait的线程 notify_all是通知所有正在wait的线程</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;mutex&gt;
+using namespace std;
+
+//调用类对象的成员函数的方式来创建线程
+class A &#123;
+public:
+    void inMsgRecvQueue()
+    &#123;
+        for (int i = 0; i &lt; 10000; i++) &#123;
+            cout &lt;&lt; &quot;inMsgRecvQueue执行，插入一个元素: &quot; &lt;&lt; i &lt;&lt; endl;
+            std::unique_lock&lt;std::mutex&gt; sbguard1(my_mutex1);  //尝试拿到锁头
+            msgRecvQueue.push_back(i);
+            //my_cond.notify_one();  //尝试把wait的线程唤醒
+            my_cond.notify_all();  //尝试把wait的线程唤醒
+
+            // ...执行其他代码
+        &#125;
+    &#125;
+
+    void outMsgRecgQueue() &#123;
+        int commond = 0;
+        while (true) &#123;
+            std::unique_lock&lt;std::mutex&gt; sbguard1(my_mutex1);
+            //wait() 用来等一个东西
+            // 如果第二个参数返回true，那么wait()直接返回
+            // 如果第二个参数返回false,那么wait()将解锁互斥量，并堵塞到本行
+            // 一直堵塞到某一个线程调用notify_one为止；
+            // 如果wait()没有第二个参数，my_cond(sbguard1);那么就和第二个参数lambda直接返回false一样
+            // wait()将解锁互斥量，并堵塞到本行，直到某一个线程调用notify_one成员函数为止
+            // 当其他线程用notify_one之后，wait就开始干活。干什么活呢？
+            // a) wait()不断的尝试重新获取互斥量锁，如果获取不到，那么流程就卡在wait这里等着获取，如果获取到了锁，那么流程就继续
+            // b) 上锁（实际获取到了锁就相当于上锁 ）
+            //    b.1) 如果表达式为false，那wait又对互斥量解锁，然后又休眠，等待再次被notify_one()唤醒
+            //    b.2) 如果lambda表达式为true，则wait返回，流程可以继续执行（此时互斥量已被锁住）。
+            //    b.3) 如果wait没有第二个参数，则wait返回，流程走下来
+            my_cond.wait(sbguard1, [this] &#123;
+                if (!msgRecvQueue.empty())
+                    return true;
+                return false;
+            &#125;);
+
+            //流程走到这里，互斥锁一定是被锁着的, 同时是最少有一条数据的
+            commond = msgRecvQueue.front();
+            msgRecvQueue.pop_front();
+            sbguard1.unlock();
+            cout &lt;&lt; &quot;outMsgRecgQueue 执行, 取出一个元素&quot; &lt;&lt; commond &lt;&lt; endl;
+        &#125;
+    &#125;
+
+private:
+    list&lt;int&gt; msgRecvQueue;  //消息队列
+    std::mutex my_mutex1;// 创建一个互斥量
+    std::condition_variable my_cond; //生成一个条件对象
+&#125;;
+
+
+
+int main()
+&#123;
+    //条件变量condition_variable、wait、notify_one、notify_all
+    //线程A,等待一个条件满足
+    //线程B,专门向消息队列中扔数据
+    //std::condition_variable实际上是一个类，说白了就是等待一个条件的达成
+    //这个类需要和互斥量配合使用
+
+
+    //notify_all()
+    // 
+    A myobja;
+    std::thread myOutnMsgObj1(&amp;A::outMsgRecgQueue, &amp;myobja);
+    std::thread myOutnMsgObj2(&amp;A::outMsgRecgQueue, &amp;myobja);
+
+    std::thread myInnMsgObj(&amp;A::inMsgRecvQueue, &amp;myobja);
+
+    myOutnMsgObj1.join();
+    myOutnMsgObj2.join();
+    myInnMsgObj.join();
+
+    return 0;
+&#125;
+</code></pre>
 
             </div>
 
@@ -303,11 +348,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：C++并行开发1-并发基本概念及实现，进程、线程基本概念</li>
+        <li>Post title：C++并行开发8-condition_variable、wait、notify_one、notify_all</li>
         <li>Post author：The Redefine Team</li>
         <li>Create time：2023-06-18 22:40:09</li>
         <li>
-            Post link：https://redefine.ohevan.com/2023/06/18/C++并行开发1-并发基本概念及实现，进程、线程基本概念/
+            Post link：https://redefine.ohevan.com/2023/06/18/C++并行开发8-condition_variable、wait、notify_one、notify_all/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -323,14 +368,29 @@
             
                 <div class="article-nav">
                     
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%916-unique_lock%E8%AF%A6%E8%A7%A3/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++并行开发6-unique_lock详解.md</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%9110-future%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E3%80%81shared_future%E3%80%81atomic/"
+                            href="/2023/06/18/C++%E5%B9%B6%E8%A1%8C%E5%BC%80%E5%8F%919-async%E3%80%81future%E3%80%81packaged_task%E3%80%81promise/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">C++并行开发10-future其他成员函数、shared_future、atomic</span>
+                                    <span class="post-nav-title-item">C++并行开发9-async、future、packaged_task、promise</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -350,8 +410,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">C++并行开发1-并发基本概念及实现，进程、线程基本概念</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">1、并发基本概念及实现，进程线程基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%B9%B6%E5%8F%91"><span class="nav-text">1.1 并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-text">1.2 可执行程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E8%BF%9B%E7%A8%8B"><span class="nav-text">1.3 进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E7%BA%BF%E7%A8%8B"><span class="nav-text">1.4 线程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B9%B6%E5%8F%91%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-text">二、并发的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%B9%B6%E5%8F%91"><span class="nav-text">2.1 多进程并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91"><span class="nav-text">2.2 多线程并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E6%80%BB%E7%BB%93"><span class="nav-text">2.3 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81-C-%E6%96%B0%E6%A0%87%E5%87%86"><span class="nav-text">三、 C++新标准</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="nav-text">参考：</span></a></li></ol>
+        <div class="page-title">C++并行开发8-condition_variable、wait、notify_one、notify_all</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#std-condition-variable"><span class="nav-text">std::condition_variable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#notify-one-amp-notify-all"><span class="nav-text">notify_one &amp; notify_all</span></a></li></ol></li></ol>
 
     </div>
 </div>
